@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineInterface", "CommandLineInterface\CommandLineInterface.csproj", "{D127340B-A39A-41FF-9C43-D195C28091FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandLineInterface", "CommandLineInterface\CommandLineInterface.csproj", "{D127340B-A39A-41FF-9C43-D195C28091FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing-CommandLineInterface", "..\Testing-CommandLineInterface\Testing-CommandLineInterface\Testing-CommandLineInterface.csproj", "{3B2B20E0-3070-4799-84A7-88C8F4BB37AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D127340B-A39A-41FF-9C43-D195C28091FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D127340B-A39A-41FF-9C43-D195C28091FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D127340B-A39A-41FF-9C43-D195C28091FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2B20E0-3070-4799-84A7-88C8F4BB37AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B2B20E0-3070-4799-84A7-88C8F4BB37AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B2B20E0-3070-4799-84A7-88C8F4BB37AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B2B20E0-3070-4799-84A7-88C8F4BB37AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
