@@ -7,7 +7,7 @@ namespace CommandLineInterface
 {
     public static partial class Parser
     {
-        public static partial class RegularExpressions
+        public static partial class Re
         {
             private static string _string_      = "\".*?[^\\\\]\"";
             private static string _identifier_  = @"[\w_\-]+";
@@ -23,7 +23,7 @@ namespace CommandLineInterface
             // USEFUL DATA:
             //  [1] The command name
             //  [2] The remaining part of the string
-            private static string SeparateCommandNameFromArguments_string = $"^({_commandName_})(.*)$";
+            private readonly static string SeparateCommandNameFromArguments_string = $"^({_commandName_})(.*)$";
             public static Regex SeparateCommandNameFromArguments
                 = new Regex(SeparateCommandNameFromArguments_string);
 
@@ -31,7 +31,7 @@ namespace CommandLineInterface
             // Alternatively, an argument can be bound to the default scope, meaning it has no preceeding tag.
             // USEFUL DATA:
             //  Match[] of all scopes
-            private static string GetScopes_string = $"(^{_arguments_}+|{_tag_}( +{_arguments_}*)?)";
+            private readonly static string GetScopes_string = $"(^{_arguments_}+|{_tag_}( +{_arguments_}*)?)";
             public static Regex GetScopes
                 = new Regex(GetScopes_string);
 
@@ -39,28 +39,30 @@ namespace CommandLineInterface
             // USEFUL DATA:
             //  [1] The tag name
             //  [2] The tag's arguments
-            private static string SeparateTagsFromArguments_string = $"^({_tag_})({_separator_}{_arguments_}+)?";
+            private readonly static string SeparateTagsFromArguments_string = $"^({_tag_})({_separator_}{_arguments_}+)?";
             public static Regex SeparateTagFromArguments
                 = new Regex(SeparateTagsFromArguments_string);
 
             // Matches all arguments
             // USEFUL DATA:
             //  [1] Trimmed argument
-            private static string GetArguments_string = $"({_argument_})";
+            private readonly static string GetArguments_string = $"({_argument_})";
             public static Regex GetArguments
                 = new Regex(GetArguments_string);
 
             // Matches all spreaders 
             // USEFUL DATA:
             //  Match[] of spreaders 
-            private static string GetSpreaders_string = $" {_spreader_}( |$)";
+            private readonly static string GetSpreaders_string = $" {_spreader_}";
             public static Regex GetSpreaders
                 = new Regex(GetSpreaders_string);
 
             // Matches all sections to be concatenated
             // USEFUL DATA:
             //  Match[] of two variables that are to be concatenated
-            private static string ToBeConcatenated_string = $"{_argument_} +\\+ +{_argument_}";
+            //  [1] The first operand
+            //  [2] the second operand
+            private readonly static string ToBeConcatenated_string = $"{_argument_} +\\+ +{_argument_}";
             public static Regex ToBeConcatenated
                 = new Regex(ToBeConcatenated_string);
 

@@ -9,7 +9,7 @@ namespace CommandLineInterface
 {
     public static partial class Parser
     {
-        public static partial class RegularExpressions
+        public static partial class Re
         {
             // Coverts a MatchCollection to a List<(int, int)>
             public static List<(int, int)> ConvertMatchesToRanges(MatchCollection matches)

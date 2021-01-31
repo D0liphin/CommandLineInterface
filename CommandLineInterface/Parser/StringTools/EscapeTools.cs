@@ -85,15 +85,15 @@ namespace CommandLineInterface
                     StringBuilder sb = new StringBuilder();
                     for (i2 = 0; i2 < textToEscape.Length; ++i2)
                     {
-                        if (textToEscape[i2] == escapeChar)
-                        {
-                            escapeThis = true;
-                            continue;
-                        }
                         if (escapeThis)
                         {
                             sb.Append(lookupDictionary[textToEscape[i2]]);
                             escapeThis = false;
+                            continue;
+                        }
+                        if (textToEscape[i2] == escapeChar)
+                        {
+                            escapeThis = true;
                             continue;
                         }
                         sb.Append(textToEscape[i2]);
@@ -103,9 +103,9 @@ namespace CommandLineInterface
                 };
             }
 
-            public static string EscapeIfInString(string text, Func<string, string> Escaper)
+            public static string EscapeIfInString(string text, Func<string, string> Escaper, List<(int, int)> stringRanges=null)
             {
-                List<(int, int)> stringRanges = StringRanges(text);
+                stringRanges = stringRanges ?? StringRanges(text);
                 return ReplaceRanges(text, stringRanges, portion => Escaper(portion));
             }
         }
