@@ -17,28 +17,30 @@ namespace CommandLineInterface
             this.Tags = tags;
         }
 
-        private string StringifyArgs(string[] args)
+        private string StringifyArgs(string[] args, int indent=1)
         {
             string stringified = "";
-            foreach (string arg in args) stringified += $"    {arg},\n";
+            if (args.Length == 0) return "[]";
+            foreach (string arg in args) stringified += $"{new string(' ', 4*indent)}\"{arg}\",\n";
             return "[\n" + stringified + "]";
         }
 
         private string StringifyTags()
         {
             string stringified = "";
+            if (Tags.Keys.Count == 0) return "{}";
             foreach (string tag in Tags.Keys) 
-                stringified += $"\"{tag}\": {StringifyArgs(Tags[tag])}\n";
-            return stringified;
+                stringified += $"\"{tag}\": {StringifyArgs(Tags[tag], 2)}\n";
+            return "{\n" + stringified + "}";
         }
 
         public override string ToString()
         {
             return
-                Name + "\n" +
-                StringifyArgs(Args) + "\n" +
-                StringifyTags() + "\n"
-                ;
+            Name + " " +
+            StringifyArgs(Args) + "\n" +
+            StringifyTags() + "\n"
+            ;
         }
     }
 }

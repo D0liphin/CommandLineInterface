@@ -11,17 +11,7 @@ namespace CommandLineInterface
 
         static public CommandDetails Parse(string command)
         {
-            string input = command;
-
-            // if storage
-            if (command[0] == '@')
-            {
-                Match match = Re.SeparateCommandNameFromArguments.Match(command);
-                string toStore = match.Groups[1].Value;
-                Storage.Store(match.Groups[1].Value.Trim('@'), toStore);
-                return null;
-            }
-                
+            string input = command;                
             Func<string, string> UnEscape;
             Func<string, string> Escape = StringTools.EscaperFactory(toEscape, out UnEscape);
             input = StringTools.EscapeIfInString(input, Escape);
@@ -29,7 +19,20 @@ namespace CommandLineInterface
             input = JoinConcatenators(input);
             string name;
             string[] scopes = GetScopes(input, out name);
-            return GetDetails(name, scopes, UnEscape);
+            CommandDetails details = GetDetails(name, scopes, UnEscape);
+
+            // if storage
+            if (command[0] == '@')
+            {
+                Match match = Re.SeparateCommandNameFromArguments.Match(command);
+                string value = "\"" + String.Join(' ', details.Args) + "\" ";
+                foreach (string tagKey in details.Tags.Keys)
+                {
+                    value += "-" + tagKey + " \"" + String.Join(' ', details.Tags[tagKey]) + "\"";
+                }
+                Storage.Store(name.Trim('@'), value);
+            }
+            return details;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace CommandLineInterface
         public static string Fetch(string name)
         {
             DeserializerTask.Wait();
-            string fetched = "";
+            string fetched;
             if (sessionStorage.TryGetValue(name, out fetched))
             {
                 return fetched;
@@ -40,6 +40,7 @@ namespace CommandLineInterface
             if (!sessionStorage.TryAdd(key, value))
             {
                 sessionStorage[key] = value;
+                Console.WriteLine($"sessionStorage[{key}] = {value}");
             }
         }
 

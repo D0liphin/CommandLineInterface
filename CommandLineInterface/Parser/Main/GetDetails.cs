@@ -52,7 +52,7 @@ namespace CommandLineInterface
                 }
             }
 
-            return new CommandDetails(name, args, tags);
+            return new CommandDetails(name, args ?? new string[0], tags);
         }
     }
 }
