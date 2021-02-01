@@ -22,7 +22,7 @@ namespace CommandLineInterface
                 for (i = concatenatorMatches_Count - 1; i >= 0 ; --i)
                 {
                     thisMatch = concatenatorMatches[i];
-                    concatenated = "\"" + thisMatch.Groups[1].Value.Trim('"') + thisMatch.Groups[2].Value.Trim('"') + "\"";
+                    concatenated = "\"" + StringTools.TrimOne(thisMatch.Groups[1].Value, '"') + StringTools.TrimOne(thisMatch.Groups[2].Value, '"') + "\"";
                     text = StringTools.ReplaceRange(text, concatenated, concatenatorRanges[i]);
                 }
             }

@@ -9,6 +9,29 @@ namespace CommandLineInterface
     {
         static private char[] toEscape = new char[] { '\'', '"', '\\' };
 
+        static private string SerializeArguments(string[] args)
+        {
+            string serialized = "";
+            int i;
+            for (i = 0; i < args.Length; ++i)
+            {
+                serialized += " \"" + args[i] + "\"";
+            }
+            return serialized;
+        }
+
+        static private string Serialize(CommandDetails details)
+        {
+            string serialized = "";
+            int i;
+            var keys = details.Tags.Keys;
+            foreach (string key in keys)
+            {
+                serialized += " -" + key + " " + SerializeArguments(details.Tags[key]);
+            }
+            return serialized;
+        }
+
         static public CommandDetails Parse(string command)
         {
             string input = command;                
@@ -16,6 +39,10 @@ namespace CommandLineInterface
             Func<string, string> Escape = StringTools.EscaperFactory(toEscape, out UnEscape);
             input = StringTools.EscapeIfInString(input, Escape);
             input = ReplaceSpreaders(input);
+
+            if (!Re.Validate.IsMatch(input)) 
+                return new CommandDetails("[PARSING ERROR] Invalid format.", new string[0], new Dictionary<string, string[]>(), true);
+
             input = JoinConcatenators(input);
             string name;
             string[] scopes = GetScopes(input, out name);
@@ -23,15 +50,8 @@ namespace CommandLineInterface
 
             // if storage
             if (command[0] == '@')
-            {
-                Match match = Re.SeparateCommandNameFromArguments.Match(command);
-                string value = "\"" + String.Join(' ', details.Args) + "\" ";
-                foreach (string tagKey in details.Tags.Keys)
-                {
-                    value += "-" + tagKey + " \"" + String.Join(' ', details.Tags[tagKey]) + "\"";
-                }
-                Storage.Store(name.Trim('@'), value);
-            }
+                Storage.Store(name.Trim('@'), Serialize(details));
+            
             return details;
         }
     }

@@ -9,12 +9,14 @@ namespace CommandLineInterface
         public readonly string Name;
         public readonly string[] Args;
         public readonly Dictionary<string, string[]> Tags;
+        public readonly bool BadFormat;
 
-        public CommandDetails(string name, string[] args, Dictionary<string, string[]> tags)
+        public CommandDetails(string name, string[] args, Dictionary<string, string[]> tags, bool badFormat=false)
         {
             this.Name = name;
             this.Args = args;
             this.Tags = tags;
+            this.BadFormat = badFormat;
         }
 
         private string StringifyArgs(string[] args, int indent=1)

@@ -18,6 +18,13 @@ namespace CommandLineInterface
             {
                 return text.Substring(range.Item1, range.Item2 - range.Item1);
             }
+
+            public static string TrimOne(string text, char character)
+            {
+                if (text[0] == character) text = Slice(text, (1, text.Length));
+                if (text[text.Length - 1] == character) text = Slice(text, (0, text.Length - 1));
+                return text;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace CommandLineInterface
             string[] args = new string[matches_Count];
             for (i = 0; i < matches_Count; ++i)
             {
-                args[i] = UnEscape(matches[i].Value.Trim('"'));
+                args[i] = UnEscape(StringTools.TrimOne(matches[i].Value, '"'));
             }
             return args;
         }
