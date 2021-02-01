@@ -65,23 +65,26 @@ This measns that `argument` and `"argument"` are both stored the same.
 
 ### Examples
 
+`command arg1 arg2 arg3`
+```js
+{
+  Args: [
+    "arg1",
+    "arg2",
+    "arg3"
+  ]
+}
 ```
-> command arg1 arg2 arg3
 
-command [
-  "arg1",
-  "arg2",
-  "arg3"
-]
-```
-```
-> command "argument one" arg2 "argument number 3"
-
-command [
-  "argument one",
-  "arg2",
-  "argument number 3"
-]
+`command "argument one" arg2 "argument number 3"`
+```js
+{
+  Args: [
+    "argument one",
+    "arg2",
+    "argument number 3"
+  ]
+}
 ```
 
 
