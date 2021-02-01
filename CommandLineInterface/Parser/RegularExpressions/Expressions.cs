@@ -45,8 +45,8 @@ namespace CommandLineInterface
 
             // Matches all arguments
             // USEFUL DATA:
-            //  [1] Trimmed argument
-            private readonly static string GetArguments_string = $"({_argument_})";
+            //  MatchCollection of arguments
+            private readonly static string GetArguments_string = $"{_argument_}";
             public static Regex GetArguments
                 = new Regex(GetArguments_string);
 

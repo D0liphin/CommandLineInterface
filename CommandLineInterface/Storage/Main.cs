@@ -13,7 +13,11 @@ namespace CommandLineInterface
         public static string XmlFileDirectory = @"C:\Users\Oli\Documents\Program Files\Cli-Discord\Storage.xml";
 
         private static Dictionary<string, string> sessionStorage
-            = new Dictionary<string, string>();
+            = new Dictionary<string, string>() 
+            {
+                { "SomeSpreader", "This contains some args" },
+                { "SomeOtherSpreader", "-this has \"some tags\""  }
+            };
 
         private static Dictionary<string, string> sessionStorageTemp
             = new Dictionary<string, string>();
