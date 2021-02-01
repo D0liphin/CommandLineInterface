@@ -37,4 +37,53 @@ They cannot lead with a hyphen.
 - `command "a string \"something in quotes\"" arg2 "argument number 3"`
 
 
-##
+## Tags
+
+Tags lead with a hyphen. They can contain alphanumeric characters, hyphens and underscores.  
+Any arguments that follow a tag are considered to be part of that tag's 'scope' and apply to that tag.  
+Tags are referenced without the first hyphen `-some-tag` would be called `some-tag` and `---some-tag` would be called `--some-tag`.  
+as a general rule, tags should be spaced with hyphens.  
+Tags do not need arguments.
+
+### Examples
+
+- `command arg1 -tag arg1 arg2 arg3` `tag1` has 3 arguments, `arg1`, `arg2` and `arg3`.
+- `command arg1 -tag arg1 "some string argument" -tag2 -tag3 anotherArgument`
+
+# `CommandLineInterface.Parser.Parse(string plainTextCommand)`
+
+using `CommandLineInterface.Parser.Parse(string plainTextCommand)` returns a `CommandLineInterface.CommandDetails` object that represents a parsed command.
+
+# `CommandLineInterface.CommandDetails`
+
+`CommandDetails` objects contain several `readonly` attributes.  
+
+## `string[] Args`
+
+An array of all the arguments the user has entered. All arguments are strings.  
+This measns that `argument` and `"argument"` are both stored the same.
+
+### Examples
+
+```
+> command arg1 arg2 arg3
+
+command [
+  "arg1",
+  "arg2",
+  "arg3"
+]
+```
+```
+> command "argument one" arg2 "argument number 3"
+
+command [
+  "argument one",
+  "arg2",
+  "argument number 3"
+]
+```
+
+
+
+
