@@ -29,7 +29,7 @@ namespace CommandLineInterface
             {
                 serialized += " -" + key + " " + SerializeArguments(details.Tags[key]);
             }
-            return serialized;
+            return SerializeArguments(details.Args) + serialized;
         }
 
         static public CommandDetails Parse(string command)

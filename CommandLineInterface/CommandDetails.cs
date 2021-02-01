@@ -24,7 +24,7 @@ namespace CommandLineInterface
             string stringified = "";
             if (args.Length == 0) return "[]";
             foreach (string arg in args) stringified += $"{new string(' ', 4*indent)}\"{arg}\",\n";
-            return "[\n" + stringified + "]";
+            return  "[\n" + stringified + new string(' ', 4 * (indent - 1)) + "],";
         }
 
         private string StringifyTags()
@@ -32,7 +32,7 @@ namespace CommandLineInterface
             string stringified = "";
             if (Tags.Keys.Count == 0) return "{}";
             foreach (string tag in Tags.Keys) 
-                stringified += $"\"{tag}\": {StringifyArgs(Tags[tag], 2)}\n";
+                stringified += $"    \"{tag}\": {StringifyArgs(Tags[tag], 2)}\n";
             return "{\n" + stringified + "}";
         }
 
