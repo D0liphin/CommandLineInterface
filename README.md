@@ -1,24 +1,40 @@
 # CommandLineInterface
 A C# class library for easily creating a CLI.
 
-Using `CommandLineInterface.ParseCommand` should parse a command described with the below specification.
+## Motivation
+I wanted an easy way to execute functions from the command line in a closed environment (so, without using `EvaluateExpression` etc.).
 
-## `<command_name>`
-Command names can be alphanumeric as well as contain underscores and hyphens. 
+## Breaking down a command
+All expressions are in the format `<name> <parameters>`.   
+Commands, like methods, have position arguments and keyword arguments.
 
-### Examples
+### Command Names
+Command names must be contain only alphanumeric characters, underscores and hyphens.  
+
+#### Examples
 ```
 command_name
-commandName
 CommandName
-command_name123
-123command_name
+0commandname
 command-name
--command-name
+commandname0
 ```
 
-It is recommended to use all-lowercase abbreviations for commands 
+It is recommended that command names are all lowercase and as short as possible.  
+E.g. `msg` is better than `send_message` and `ls` is better than `list_all_items`.
 
-## `<command_name> <arg>`
+### Positional Arguments
+Positional arguments work just as you'd expect.
 
-ok i can't be bothered writing this rn
+Arguments are either strings or literals. 
+- **literals** contains alphanumeric characters, underscores, hyphens, forward-slashes and periods. 
+They cannot lead with a hyphen.  
+- **strings** are enclosed **only by double quotes**. They can contain any character. `\\` will evaluate to `\` and `\"` will evaluate to `"`.
+
+#### Examples
+```
+command arg1 arg2 arg3
+command "a string argument" arg2 arg3
+command "a string \"something in quotes\"" arg2 "argument number 3"
+```
+
