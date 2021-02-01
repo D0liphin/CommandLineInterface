@@ -35,9 +35,12 @@ namespace CommandLineInterface
             return "UNDEFINED_SPREADER";
         }
 
-        public static void Store(string item)
+        public static void Store(string key, string value)
         {
-            
+            if (!sessionStorage.TryAdd(key, value))
+            {
+                sessionStorage[key] = value;
+            }
         }
 
         // Initiates the DeserializerTask task 
@@ -63,6 +66,7 @@ namespace CommandLineInterface
         // Xml data stored indefinitely must must be serialized 
         public static void Serialize()
         {
+            DeserializerTask.Wait();
             List<Entry> entries = new List<Entry>();
             foreach (string key in sessionStorage.Keys)
             {

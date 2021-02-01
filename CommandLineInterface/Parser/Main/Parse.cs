@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Text;
 using System.Collections.Generic;
 
@@ -6,37 +7,29 @@ namespace CommandLineInterface
 {
     static public partial class Parser
     {
+        static private char[] toEscape = new char[] { '\'', '"', '\\' };
+
         static public CommandDetails Parse(string command)
         {
             string input = command;
-            // Console.WriteLine("[INPUT]                  " + input);
 
-            // (1) escape strings
+            // if storage
+            if (command[0] == '@')
+            {
+                Match match = Re.SeparateCommandNameFromArguments.Match(command);
+                string toStore = match.Groups[1].Value;
+                Storage.Store(match.Groups[1].Value.Trim('@'), toStore);
+                return null;
+            }
+                
             Func<string, string> UnEscape;
-            Func<string, string> Escape = Parser.StringTools.EscaperFactory(new char[] { '\'', '"', '\\' }, out UnEscape);
-            input = Parser.StringTools.EscapeIfInString(input, Escape);
-            // Console.WriteLine("[ESCAPE SPECIAL CHARS]   " + input);
-
-            // (2) expand spreaders
-            input = Parser.ReplaceSpreaders(input);
-            // Console.WriteLine("[EXPAND SPREADERS]       " + input);
-
-            // (3) join concatenators
-            input = Parser.JoinConcatenators(input);
-            // Console.WriteLine("[JOIN CONCATENATORS]     " + input);
-
-            // (4) Split command name from args
-            // (5) Get Scopes
+            Func<string, string> Escape = StringTools.EscaperFactory(toEscape, out UnEscape);
+            input = StringTools.EscapeIfInString(input, Escape);
+            input = ReplaceSpreaders(input);
+            input = JoinConcatenators(input);
             string name;
-            string[] scopes = Parser.GetScopes(input, out name);
-            // Console.WriteLine("\n[SPLIT NAME FROM ARGS]   " + name);
-            // Console.WriteLine("\n[GET SCOPES]");
-            // foreach (string scope in scopes) Console.WriteLine("\t" + scope);
-
-            // (3) split tag from args
-            // (4) split up args 
-            return Parser.GetDetails(name, scopes, UnEscape);
-            // Console.WriteLine(details);
+            string[] scopes = GetScopes(input, out name);
+            return GetDetails(name, scopes, UnEscape);
         }
     }
 }
