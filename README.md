@@ -50,11 +50,11 @@ Tags do not need arguments.
 - `command arg1 -tag arg1 arg2 arg3` `tag1` has 3 arguments, `arg1`, `arg2` and `arg3`.
 - `command arg1 -tag arg1 "some string argument" -tag2 -tag3 anotherArgument`
 
-# `CommandLineInterface.Parser.Parse(string plainTextCommand)`
+# `Parser.Parse(string plainTextCommand)`
 
-using `CommandLineInterface.Parser.Parse(string plainTextCommand)` returns a `CommandLineInterface.CommandDetails` object that represents a parsed command.
+using `Parser.Parse(string plainTextCommand)` returns a `CommandDetails` object that represents a parsed command.
 
-# `CommandLineInterface.CommandDetails`
+# `CommandDetails`
 
 `CommandDetails` objects contain several `readonly` attributes.  
 
